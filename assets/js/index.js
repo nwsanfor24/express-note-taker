@@ -4,6 +4,23 @@ var $saveNoteBtn = $(".save-note");
 var $newNoteBtn = $(".new-note");
 var $noteList = $(".list-container .list-group");
 
+
+//Installed frameworks
+const express = require('express');
+const bodyParser = require('body-parser');
+
+//call express and body-parser
+let app = express();
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+app.set('view engine', 'ejs');
+
+app.listen(3000, function() {
+    console.log("NoteApp is running at port: 3000");
+});
 // activeNote is used to keep track of the note in the textarea
 var activeNote = {};
 

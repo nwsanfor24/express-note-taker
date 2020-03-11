@@ -29,10 +29,29 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-8">
-                <input class="note-title" placeholder="Note Title" maxlength="28" type="text">
-                <textarea class="note-textarea" placeholder="Note Text"></textarea>
+
+            <div class="container">
+                <div class="jumbotron">
+                    <form action="/notes" method="POST">
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="newNote" id="newNote"
+                                placeholder="Add new Note"></textarea>
+                            <button class="btn btn-success" type="submit">Add Note</button>
+                        </div>
+                    </form>
+                </div>
             </div>
+
+            <!--Table for inputted notes-->
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">NOTES</th>
+                        <th scope="col">ACTION</th>
+                    </tr>
+                </thead>
+            </table>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
