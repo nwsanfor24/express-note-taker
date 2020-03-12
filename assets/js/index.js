@@ -9,6 +9,8 @@ var $noteList = $(".list-container .list-group");
 const express = require('express');
 const bodyParser = require('body-parser');
 
+let note = [{ id: 1, body: "We have a text" }, { id: 2, body: "This is a second text"}];
+
 //call express and body-parser
 let app = express();
 
@@ -16,7 +18,37 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+//Serving Static files
+app.use(express.static('public'));
+
+//Installed the ejs and created a file inside the views
 app.set('view engine', 'ejs');
+
+//Route for the App
+app.get('/', function(req, res) {
+    res.render('notes', {
+        note: note
+    });
+});
+
+//App.post option
+app.post("/addNotes", function(req, res) {
+
+    const userNote = {};
+    userNote.id = Math.random() * 100;
+    userNote.body = req.body.newNote
+    note.push(userNote);
+
+    res.redirect('/');
+});
+
+//Delete Request
+app.post('/deleteNote/:id', function(req, res) {
+    console.log(req.params.id);
+    const deleteNotes = note.filter(item => item.id != req.params.id);
+    note = deleteNotes;
+    return res.redirect('/');
+});
 
 app.listen(3000, function() {
     console.log("NoteApp is running at port: 3000");
