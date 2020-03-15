@@ -2,6 +2,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+let note = [{ id: 1, body: 'We have a text' }, { id: 2, body: 'This is a second text' }];
+
 //Call the express and body-parser
 let app = express();
 app.use(bodyParser.urlencoded({
