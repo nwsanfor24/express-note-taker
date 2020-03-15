@@ -190,3 +190,7 @@ $noteText.on("keyup", handleRenderSaveBtn);
 
 // Gets and renders the initial list of notes
 getAndRenderNotes();
+
+app.listen(5000, function() {
+    console.log("NoteApp server is running at port 5000...");
+});
