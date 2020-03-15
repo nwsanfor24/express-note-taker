@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 //Serving static files
-app.use(express.static('public'));
+app.use(express.static(__dirname + 'public'));
 
 //Installed ejs and created a file inside the views
 app.set('view engine', 'ejs');
