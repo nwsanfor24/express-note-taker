@@ -1,50 +1,34 @@
 //Declare installed frameworks
 const express = require('express');
-const bodyParser = require('body-parser');
+const fs = require("fs");
 
-let note = [{ id: 1, body: 'We have a text' }, { id: 2, body: 'This is a second text' }];
+const app = express();
+const PORT = process.env.PORT || 8080;
 
-//Call the express and body-parser
-let app = express();
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-//Serving static files
-app.use(express.static(__dirname + 'public'));
+// Create our server
+var server = http.createServer(handleRequest);
 
-//Installed ejs and created a file inside the views
-app.set('view engine', 'ejs');
 
-//Route for the app
-app.get('/', function (req, res) {
-    res.render('notes', {
-        note: note
+// Create a function for handling the requests and responses coming into our server
+function handleRequest(req, res) {
+
+    // Here we use the fs package to read our index.html file
+    fs.readFile(__dirname + "/index.html", function (err, data) {
+        if (err) throw err;
+        // We then respond to the client with the HTML page by specifically telling the browser that we are delivering
+        // an html file.
+        res.writeHead(200, { "Content-Type": "text/html" });
+        res.end(data);
     });
+}
+
+// Starts our server
+server.listen(PORT, function () {
+    console.log("Server is listening on PORT: " + PORT);
 });
 
-//app.post option
-app.post("/addNotes", function (req, res) {
-    const userNote = {};
-    userNote.id = Math.random() * 100;
-    userNote.body = req.body.newNote
-    note.push(userNote);
-
-    res.redirect('/');
-});
-
-//Delete request
-
-app.post('/deleteNote/:id', function(req, res) {
-    console.log(req.params.id);
-    const deleteNotes = note.filter(item => item.id != req.params.id);
-    note = deleteNotes;
-    return res.redirect('/');
-});
-
-//running server at Port 5000
-app.listen(5000, function() {
-    console.log("Notes App is running at port 5000");
-});
 
 
