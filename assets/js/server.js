@@ -9,7 +9,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(express.json());
 
-const notes = require('./assets/js/notes');
+const notes = require('assets\js\notes.js');
+const routes = require('assets\js\routes.js');
 
 //Active note item
 
@@ -21,8 +22,27 @@ app.get('/api/notes/get/:index', function(req, res) {
 //Save notes
 
 app.post('/api/notes/save', function(req, res) {
-    const {title, content, favorite, data}
-})
+    const {title, content, dataIndex} = req.body;
+
+    if (dataIndex === null) {
+        notes.push({title, content});
+        const newIndex = notes.length - 1;
+        return res.send(newIndex.toString());
+    } else {
+        notes[dataIndex] = {title, content};
+        return res.end();
+    }
+});
+
+//Delete notes
+
+app.delete('/api/notes/delete/:index', function(req, res) {
+    const deleteIndex = parseInt(req.params.index);
+
+    notes.splice(deleteIndex, 1);
+
+    return res.end();
+});
 
 
 
