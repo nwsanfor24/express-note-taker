@@ -9,8 +9,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(express.json());
 
-const notes = require('assets\js\notes.js');
-const routes = require('assets\js\routes.js');
+const notes = require('./notes');
+
 
 //Active note item
 
@@ -45,9 +45,10 @@ app.delete('/api/notes/delete/:index', function(req, res) {
 });
 
 
+require("./routes")(app);
 
 // Starts our server
-server.listen(PORT, function () {
+app.listen(PORT, function () {
     console.log("Server is listening on PORT: " + PORT);
 });
 

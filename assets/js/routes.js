@@ -1,3 +1,6 @@
+const path = require("path");
+const fs = require("fs");
+
 // Routes
 // ============================================
 module.exports = function (app) {
