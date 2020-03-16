@@ -1,30 +1,30 @@
 //Declare installed frameworks
 const express = require('express');
 const fs = require("fs");
-const http = require("http");
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3500;
 
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 app.use(express.json());
 
-// Create our server
-var server = http.createServer(handleRequest);
+const notes = require('./assets/js/notes');
+
+//Active note item
+
+app.get('/api/notes/get/:index', function(req, res) {
+    const userIndex = req.params.index;
+    return res.json(notes[userIndex]);
+});
+
+//Save notes
+
+app.post('/api/notes/save', function(req, res) {
+    const {title, content, favorite, data}
+})
 
 
-// Create a function for handling the requests and responses coming into our server
-function handleRequest(req, res) {
-
-    // Here we use the fs package to read our index.html file
-    fs.readFile(__dirname + "/index.html", function (err, data) {
-        if (err) throw err;
-        // We then respond to the client with the HTML page by specifically telling the browser that we are delivering
-        // an html file.
-        res.writeHead(200, { "Content-Type": "text/html" });
-        res.end(data);
-    });
-}
 
 // Starts our server
 server.listen(PORT, function () {
